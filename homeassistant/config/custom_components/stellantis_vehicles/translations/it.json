@@ -1,0 +1,235 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "mobile_app": "App mobile del veicolo"
+        }
+      },
+      "country": {
+        "data": {
+          "country_code": "Il codice del tuo paese"
+        }
+      },
+      "oauth": {
+        "description": "Segui questi step dal **browser desktop**:\n\n1. vai sulla pagina di login {oauth_link};\n2. apri il **DevTools** (F12) del browser e vai al tab **Network**;\n3. accedi al tuo account e clicca l'ultimo bottone di conferma;\n4. dal tab **Network**  trova la richiesta in basso e copia il **{oauth_label}**;{oauth_devtools}",
+        "data": {
+          "oauth_code": "Codice OAuth"
+        }
+      },
+      "otp": {
+        "data": {
+          "sms_code": "Codice SMS ricevuto da Stellantis",
+          "pin_code": "Codice pin dell'app mobile del veicolo"
+        }
+      }
+    },
+    "error": {
+      "get_access_token": "Errore access token",
+      "get_user_info": "Errore informazioni utente",
+      "missing_user_info": "Informazioni utente mancanti",
+      "get_otp_sms": "Errore sms OTP",
+      "get_mqtt_access_token": "Errore access token mqtt"
+    },
+    "abort": {
+      "already_configured": "Account già configurato",
+      "reauth_successful": "Autenticazione completata"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "service_battery_voltage": {
+        "name": "Batteria di servizio"
+      },
+      "type": {
+        "name": "Tipo",
+        "state": {
+          "electric": "Elettrico",
+          "hybrid": "Ibrido",
+          "thermic": "Termico",
+          "hydrogen": "Idrogeno"
+        }
+      },
+      "temperature": {
+        "name": "Temperatura"
+      },
+      "mileage": {
+        "name": "Kilometraggio"
+      },
+      "speed": {
+        "name": "Velocità"
+      },
+      "autonomy": {
+        "name": "Autonomia"
+      },
+      "battery": {
+        "name": "Batteria"
+      },
+      "battery_soh": {
+        "name": "Batteria SOH"
+      },
+      "battery_charging_rate": {
+        "name": "Velocità ricarica batteria"
+      },
+      "battery_charging_type": {
+        "name": "Tipo ricarica batteria",
+        "state": {
+          "no": "No",
+          "slow": "Lento",
+          "quick": "Veloce"
+        }
+      },
+      "battery_charging_time": {
+        "name": "Orario ricarica batteria"
+      },
+      "battery_charging_end": {
+        "name": "Fine ricarica batteria"
+      },
+      "battery_capacity": {
+        "name": "Capacità batteria"
+      },
+      "battery_residual": {
+        "name": "Batteria residua"
+      },
+      "command_status": {
+        "name": "Stato comandi",
+        "state": {
+          "99": "Non compatibile",
+          "900": "Accettato",
+          "901": "Il veicolo dorme",
+          "903": "Inoltrato",
+          "0": "Completato",
+          "300": "Annullato",
+          "500": "Errore",
+          "502": "Duplicato"
+        }
+      },
+      "fuel": {
+        "name": "Carburante"
+      },
+      "fuel_autonomy": {
+        "name": "Autonomia carburante"
+      },
+      "fuel_consumption_total": {
+        "name": "Consumo carburante totale"
+      },
+      "fuel_consumption_instant": {
+        "name": "Consumo carburante istantaneo"
+      },
+      "coolant_temperature": {
+        "name": "Temperatura liquido refrigerante"
+      },
+      "oil_temperature": {
+        "name": "Temperatura olio"
+      },
+      "air_temperature": {
+        "name": "Temperatura aria"
+      },
+      "last_trip": {
+        "name": "Ultimo viaggio",
+        "state_attributes": {
+          "duration": {
+            "name": "Durata"
+          },
+          "start_mileage": {
+            "name": "Kilometraggio iniziale"
+          },
+          "avg_speed": {
+            "name": "Velocità media"
+          },
+          "max_speed": {
+            "name": "Velocità massima"
+          },
+          "electric_consumption": {
+            "name": "Consumo elettrico"
+          },
+          "electric_avg_consumption": {
+            "name": "Consumo medio elettrico"
+          },
+          "fuel_consumption": {
+            "name": "Consumo carburante"
+          },
+          "fuel_avg_consumption": {
+            "name": "Consumo medio carburante"
+          }
+        }
+      }
+    },
+    "binary_sensor": {
+      "moving": {
+        "name": "Movimento"
+      },
+      "doors": {
+        "name": "Portiere"
+      },
+      "battery_plugged": {
+        "name": "Batteria collegata"
+      },
+      "battery_charging": {
+        "name": "Batteria in ricarica"
+      },
+      "engine": {
+        "name": "Motore"
+      },
+      "air_conditioning": {
+        "name": "Aria condizionata"
+      }
+    },
+    "button": {
+      "wakeup": {
+        "name": "Svegliati"
+      },
+      "doors": {
+        "name": "Portiere"
+      },
+      "horn": {
+        "name": "Clacson"
+      },
+      "lights": {
+        "name": "Luci"
+      },
+      "charge_start_stop": {
+        "name": "Start/Stop ricarica"
+      },
+      "air_conditioning": {
+        "name": "Start/Stop aria condizionata"
+      }
+    },
+    "device_tracker": {
+      "vehicle": {
+        "name": "Veicolo"
+      }
+    },
+    "number": {
+      "battery_charging_limit": {
+        "name": "Limite ricarica batteria"
+      },
+      "refresh_interval": {
+        "name": "Intervallo aggiornamento dati"
+      }
+    },
+    "switch": {
+      "battery_charging_limit": {
+        "name": "Limite ricarica batteria"
+      },
+      "abrp_sync": {
+        "name": "Sincronizza ABRP"
+      }
+    },
+    "text": {
+      "abrp_token": {
+        "name": "Token ABRP"
+      }
+    }
+  },
+  "common": {
+    "access_token_error_title": "Access token error",
+    "access_token_error_message": "CConsulta la documentazione ufficiale nella sezione [OAuth2 Code](https://github.com/andreadegiovine/homeassistant-stellantis-vehicles?tab=readme-ov-file#oauth2-code)",
+    "otp_error_title": "Errore OTP",
+    "otp_error_message": "Consulta la documentazione ufficiale nella sezione [OTP error - NOK:MAXNBTOOLS](https://github.com/andreadegiovine/homeassistant-stellantis-vehicles?tab=readme-ov-file#otp-error---nokmaxnbtools)",
+    "no_vehicles_found_title": "Non disponibile",
+    "no_vehicles_found_message": "Nessun veicolo connesso disponibile in questo account",
+    "command_error_title": "Comando",
+    "command_error_message": "Il comando non è stato inviato correttamente"
+  }
+}

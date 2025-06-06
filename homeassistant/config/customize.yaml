@@ -1,0 +1,6 @@
+# Add an entry for each entity that you want to overwrite.
+customize:
+  switch.ashp_dhw_switch:
+    assumed_state: false
+  switch.ashp_ch_switch:
+    assumed_state: false

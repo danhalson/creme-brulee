@@ -1,0 +1,6 @@
+/config/home-assistant*
+/config/zigbee*
+/config/.storage/
+/config/tts/
+/config/backups/
+/config/.cloud/

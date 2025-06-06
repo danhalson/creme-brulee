@@ -1,0 +1,327 @@
+- id: '1701376145133'
+  alias: Auto outdoor office light off
+  description: ''
+  triggers:
+  - entity_id:
+    - light.light_switch_light_2
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 0a709243337fc0e346d967f3bf75172e
+    entity_id: 180e0b48ccc89f72aca6608df9a185a3
+    domain: light
+  mode: single
+- id: '1703245300313'
+  alias: Auto office lights on when dark
+  description: Office
+  triggers:
+  - entity_id:
+    - binary_sensor.indoor_office_sensor
+    to: 'on'
+    from: 'off'
+    trigger: state
+  conditions:
+  - type: is_illuminance
+    condition: device
+    device_id: 66f9f559eb51a5f323d03c42e512792f
+    entity_id: 15b33050ffb701a5389f8143bc752ef8
+    domain: sensor
+    below: 5
+  actions:
+  - type: turn_on
+    device_id: 24edbfd5ed76c1fdacb3e3c48777888f
+    entity_id: c0ad3d0ff42149d58fe518cc6d77fcbc
+    domain: light
+  - type: turn_on
+    device_id: 93b2012178a56e5d1b7ff0ac676a9010
+    entity_id: c62aea890d39cf2b4655ecee8417b975
+    domain: light
+  mode: single
+- id: '1703245341022'
+  alias: Auto office lights off when no motion
+  description: Office
+  triggers:
+  - type: not_occupied
+    device_id: 66f9f559eb51a5f323d03c42e512792f
+    entity_id: f466a7596422e223ea11ef65c66e7a73
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 24edbfd5ed76c1fdacb3e3c48777888f
+    entity_id: c0ad3d0ff42149d58fe518cc6d77fcbc
+    domain: light
+  - type: turn_off
+    device_id: 93b2012178a56e5d1b7ff0ac676a9010
+    entity_id: c62aea890d39cf2b4655ecee8417b975
+    domain: light
+  mode: single
+- id: '1705919317349'
+  alias: Auto outdoor office lights on when dark and motion detected
+  description: ''
+  triggers:
+  - type: occupied
+    device_id: b0c9980f72a69a04af80e721a6e8bcb1
+    entity_id: 44a58d87c5ad91c6384a78e3fdd3f4ff
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - type: is_illuminance
+    condition: device
+    device_id: b0c9980f72a69a04af80e721a6e8bcb1
+    entity_id: f39e9c113660ab24dc947a017bb7d59a
+    domain: sensor
+    below: 3
+  actions:
+  - metadata: {}
+    data: {}
+    action: light.turn_on
+    target:
+      entity_id: light.light_switch_light_2
+  mode: single
+- id: '1736175464650'
+  alias: Turn on Lava Lamps
+  description: ''
+  triggers:
+  - trigger: time
+    at: '20:30:00'
+  - trigger: time
+    at: 06:00:00
+    enabled: false
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 9638d3dcc420bfd7b2aa1579a548a3c7
+    entity_id: de95de29d0324c2893c9bca4f16cb562
+    domain: switch
+  - type: turn_on
+    device_id: c91cb8ac5411c141d77ad75049367edd
+    entity_id: 936c858a3efbb6204797097fe9e21f5b
+    domain: switch
+  mode: single
+- id: '1736175505356'
+  alias: Turn off Lava Lamps
+  description: ''
+  triggers:
+  - trigger: time
+    at: '22:30:00'
+  - trigger: time
+    at: 07:30:00
+    enabled: false
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: c91cb8ac5411c141d77ad75049367edd
+    entity_id: 936c858a3efbb6204797097fe9e21f5b
+    domain: switch
+  - type: turn_off
+    device_id: 9638d3dcc420bfd7b2aa1579a548a3c7
+    entity_id: de95de29d0324c2893c9bca4f16cb562
+    domain: switch
+  mode: single
+- id: '1741858524014'
+  alias: Prevent DHW overrun
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.ashp_dhw_status
+    to: 'On'
+    for:
+      hours: 1
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: Hot Water has been on too long, turning off...
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.ashp_dhw_switch
+  mode: single
+- id: '1741858937927'
+  alias: Prevent CH overrun
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.ashp_ch_status
+    to: 'On'
+    for:
+      hours: 4
+      minutes: 0
+      seconds: 0
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: Heating has been on too long, turning off...
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.ashp_heating_switch
+  mode: single
+- id: '1741859313152'
+  alias: Prevent ASHP running in peak rate
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.ashp_ch_status
+    - sensor.ashp_dhw_status
+    to: 'On'
+  conditions:
+  - condition: time
+    after: '16:00:00'
+    before: '19:00:00'
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.ashp_dhw_switch
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.ashp_heating_switch
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: The ASHP is disabled during the peak rate
+  mode: single
+- id: '1741998315798'
+  alias: Check ch triggers (Weekend)
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.schedule_weekends
+    attribute: current_slot
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: Has the heating state transitioned?
+  mode: single
+- id: '1741998356300'
+  alias: Check ch triggers (Weekdays)
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.schedule_weekdays
+    attribute: current_slot
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: Has the heating state transitioned?
+  mode: single
+- id: '1743699193476'
+  alias: Switch off car deferred mode
+  description: ''
+  triggers:
+  - trigger: time
+    at: '22:01:00'
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.508sw_change_charge_hour
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: Check car is charging
+  mode: single
+- id: '1744815146535'
+  alias: Battery full
+  description: Notifies if battery above 95%
+  triggers:
+  - type: battery_level
+    device_id: 92cbcd85870b6d614d4c34e767b6e94d
+    entity_id: e90755bef39a4d1de7cba47eac924004
+    domain: sensor
+    trigger: device
+    above: 95
+  conditions: []
+  actions:
+  - action: notify.persistent_notification
+    metadata: {}
+    data:
+      message: The battery is at 95% charge
+      title: Battery charged
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: The battery is at 95% charge
+      title: Battery charged
+  mode: single
+- id: '1746027157580'
+  alias: Power loss
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.ups_status
+    to: On Battery Battery Discharging
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_6
+    metadata: {}
+    data:
+      message: Power loss, switched to UPS
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Switched to UPS battery
+      message: There has been a power cut, and the UPS is now running from battery.
+  mode: single
+- &id001
+  id: charging_wakeup
+  alias: Wake up car
+  description: Vehicle charging WakeUp (every 5 minutes)
+  triggers:
+  - trigger: time_pattern
+    minutes: /5
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.VR3F4DGZTKY225835_battery_charging
+    state: 'on'
+    enabled: false
+  actions:
+  - action: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.VR3F4DGZTKY225835_wakeup
+  mode: single
+- *id001

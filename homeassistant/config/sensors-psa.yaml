@@ -1,0 +1,52 @@
+# Peugeot 508sw  
+- platform: rest
+  name: peugeot_508
+  resource: http://localhost:5000/get_vehicleinfo/VR3F4DGZTKY225835?from_cache=0
+  scan_interval: 45
+  timeout: 30
+  value_template: 'OK'
+  json_attributes:
+    - energy
+    - timed_odometer
+    - battery
+- platform: template
+  sensors:
+    508sw_battery_voltage:
+      friendly_name: "Battery Voltage"
+      unit_of_measurement: "V"
+      value_template: '{{ states.sensor.peugeot_508.attributes["battery"]["voltage"] * 4 }}'
+    508sw_battery_level:
+      friendly_name: "Battery"
+      unit_of_measurement: "%"
+      value_template: '{{ states.sensor.peugeot_508.attributes["energy"][0]["level"] }}'
+    508sw_battery_autonomy:
+      friendly_name: "Autonomy"
+      unit_of_measurement: "m"    
+      value_template: "{{ ((state_attr('sensor.peugeot_508', 'energy')[0]['autonomy']) / 1.609) | round(0)}}"
+    508sw_charging_status:
+      friendly_name: "Charging Status"
+      value_template: '{{ states.sensor.peugeot_508.attributes["energy"][0]["charging"]["status"] }}'
+    508sw_mileage:
+      friendly_name: "Mileage"
+      unit_of_measurement: "m"
+      value_template: "{{ ((state_attr('sensor.peugeot_508', 'timed_odometer')['mileage']) / 1.609) | round(2)}}"
+      
+# Peugeot 508sw charge_control
+- platform: rest
+  name: peugeot_508_charge_control
+  resource: http://localhost:5000/charge_control?vin=VR3F4DGZTKY225835&?always_check=true
+  scan_interval: 60
+  timeout: 30
+  value_template: 'OK'
+  json_attributes:
+    - _next_stop_hour
+    - percentage_threshold
+- platform: template
+  sensors:
+    508sw_stop_hour:
+      friendly_name: "Next Stop Time"
+      value_template: '{{ states.sensor.peugeot_508_charge_control.attributes["_next_stop_hour"]}}'
+    508sw_threshold:
+      friendly_name: "Threshold"
+      unit_of_measurement: "%"
+      value_template: '{{ states.sensor.peugeot_508_charge_control.attributes["percentage_threshold"] }}'

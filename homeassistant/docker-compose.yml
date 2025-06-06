@@ -1,0 +1,25 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    network_mode: host
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /home/danhalson/Servers/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+      - /dev/serial/by-id:/dev/serial/by-id  
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB1:/dev/ttyUSB1  
+    environment:
+      TZ: "Europe/London"
+    #networks:
+      #- proxied
+    #ports:
+      #- 8123:8123
+
+#networks:
+  #proxied:
+    #external: true

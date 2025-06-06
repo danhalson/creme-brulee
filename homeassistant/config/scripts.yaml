@@ -1,0 +1,156 @@
+boost_heating:
+  sequence:
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 20
+    target:
+      entity_id: climate.ch_thermostat
+  - delay:
+      hours: 2
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 14
+    target:
+      entity_id: climate.ch_thermostat
+  alias: Boost Heating (2 hours)
+  description: ''
+boost_water:
+  sequence:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.ashp_dhw_switch
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.ashp_dhw_switch
+  alias: Boost Water
+  description: ''
+out_of_office:
+  sequence:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.out_of_office_running
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 12
+    target:
+      device_id:
+      - 4a500700bed1428b98abd67f5ad1c4e4
+      - 797b9429ee444e034883b8887f032e58
+  - type: turn_off
+    device_id: 26aac092156f7d408eafa8dfb393ca26
+    entity_id: 15801162d9f48341c4dcd6c2e4c9a7a7
+    domain: switch
+  - type: turn_off
+    device_id: 26aac092156f7d408eafa8dfb393ca26
+    entity_id: 029d4fd45cf4a7cffeec43f793376078
+    domain: switch
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.out_of_office_waiting
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ (23 - now().hour) * 3600 + (58 - now().minute) * 60 - now().second
+        }}'
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.out_of_office_waiting
+  - type: turn_on
+    device_id: 26aac092156f7d408eafa8dfb393ca26
+    entity_id: 15801162d9f48341c4dcd6c2e4c9a7a7
+    domain: switch
+  - type: turn_on
+    device_id: 26aac092156f7d408eafa8dfb393ca26
+    entity_id: 029d4fd45cf4a7cffeec43f793376078
+    domain: switch
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.out_of_office_running
+  alias: Out of office
+  description: ''
+back_in_office:
+  sequence:
+  - type: turn_on
+    device_id: 26aac092156f7d408eafa8dfb393ca26
+    entity_id: 15801162d9f48341c4dcd6c2e4c9a7a7
+    domain: switch
+  - type: turn_on
+    device_id: 26aac092156f7d408eafa8dfb393ca26
+    entity_id: 029d4fd45cf4a7cffeec43f793376078
+    domain: switch
+  - condition: state
+    entity_id: input_boolean.out_of_office_running
+    state: 'on'
+  - service: script.turn_off
+    target:
+      entity_id: script.out_of_office
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.out_of_office_running
+  alias: Back in office
+  description: ''
+boost_heating_1_hour:
+  sequence:
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 20
+    target:
+      entity_id: climate.ch_thermostat
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 14
+    target:
+      entity_id: climate.ch_thermostat
+  alias: Boost Heating (1 hour)
+  description: ''
+holiday_mode_on:
+  sequence:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.schedule_weekdays
+      - switch.schedule_weekends
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 15
+      hvac_mode: heat
+    target:
+      entity_id: climate.ch_thermostat
+  alias: Holiday mode on
+  description: ''
+holiday_mode_off:
+  sequence:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.schedule_weekdays
+      - switch.schedule_weekends
+  alias: Holiday mode off
+  description: ''

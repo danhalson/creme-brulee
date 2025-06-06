@@ -1,0 +1,77 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.22.0.2
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+mqtt: !include mqtt.yaml
+template: !include_dir_merge_list templates
+# command_line: !include command_line.yaml
+# sensor: !include sensors.yaml
+homeassistant: !include customize.yaml
+
+# Flag to indicate if the out of office script is running, so it can be cancelled by the back in office script
+input_boolean:
+  out_of_office_running:
+    name: Out of Office Running
+    initial: off
+  out_of_office_waiting:
+    name: Out of Office Waiting
+    initial: off
+
+climate:
+  - platform: generic_thermostat
+    unique_id: climate.ashp_ch_thermostat
+    name: "ASHP: Heating Thermostat"
+    heater: switch.ashp_heating_switch
+    target_sensor: sensor.sonoff_a4800cf55e_temperature
+    min_temp: 10
+    max_temp: 25
+    ac_mode: false
+    target_temp: 19
+    cold_tolerance: 0.3
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 10
+    precision: 0.1
+
+influxdb:
+   api_version: 2
+   ssl: false
+   host: 192.168.1.165
+   port: 8086
+   token: OkfGZQVHyhLMtTqm-SyYvwbbuLa4M39GaoEvz6BwWNrZqo2Z-VAHWhyihcii4vyhvSeWcw3WFUncR5g9tQA4Tw==
+   organization: 064162acfe4a380f
+   bucket: home-assistant
+   tags:
+     source: HA
+   tags_attributes:
+     - friendly_name
+   default_measurement: units
+   exclude:
+     entities:
+       - zone.home
+     domains:
+       - persistent_notification
+       - person
+   include:
+     domains:
+       - sensor
+       - binary_sensor
+       - sun
+     entities:
+       - weather.home

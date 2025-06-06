@@ -1,0 +1,16 @@
+# 508sw communication
+- switch:
+    name: 508sw_change_threshold
+    unique_id: 508sw_change_threshold
+    command_on: curl -s "http://localhost:5000/charge_control?vin=VR3F4DGZTKY225835&percentage=80"
+    command_off: curl -s "http://localhost:5000/charge_control?vin=VR3F4DGZTKY225835&percentage=100"
+- switch:
+    name: 508sw_defer_charge
+    unique_id: 508sw_change_charge_hour
+    command_on: curl -s "http://localhost:5000/charge_control?vin=VR3F4DGZTKY225835&hour=22&minute=0"
+    command_off: curl -s "http://localhost:5000/charge_control?vin=VR3F4DGZTKY225835&hour=0&minute=0"
+- switch:
+    name: 508sw_clim
+    unique_id: 508sw_clim
+    command_on: curl -s "http://localhost:5000/preconditioning/VR3F4DGZTKY225835/1"
+    command_off: curl -s "http://localhost:5000/preconditioning/VR3F4DGZTKY225835/0"

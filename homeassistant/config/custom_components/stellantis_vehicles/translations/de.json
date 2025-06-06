@@ -1,0 +1,228 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "mobile_app": "Fahrzeug App"
+        }
+      },
+      "country": {
+        "data": {
+          "country_code": "Dein Ländercode"
+        }
+      },
+      "oauth": {
+        "description": "Führen Sie diese Schritte im **Desktop-Browser** aus:\n\n1. Gehen Sie zur Anmeldeseite {oauth_link};\n2. Öffnen Sie den Browser **DevTools** (F12) und wechseln Sie zur Registerkarte **Netzwerk**;\n3. Melden Sie sich bei Ihrem Konto an und klicken Sie auf die letzte Schaltfläche „Bestätigen“;\n4. Suchen Sie in der Registerkarte **Netzwerk** die obige Anfrage und kopieren Sie die **{oauth_label}**;{oauth_devtools}",
+        "data": {
+          "oauth_code": "OAuth code"
+        }
+      },
+      "otp": {
+        "data": {
+          "sms_code": "SMS-Code von Stellantis",
+          "pin_code": "Pin-Code aus der Fahrzeug App"
+        }
+      }
+    },
+    "error": {
+      "get_access_token": "Fehler beim Abrufen des Zugriffstokens",
+      "get_user_info": "Fehler beim Abrufen der Benutzerinformationen",
+      "missing_user_info": "Fehler: Fehlende Benutzerinformationen",
+      "get_otp_sms": "SMS-Fehler beim OTP-Code",
+      "get_mqtt_access_token": "Fehler beim Abrufen des MQTT-Zugriffstokens"
+    },
+    "abort": {
+      "already_configured": "Der Account ist bereits konfiguriert",
+      "reauth_successful": "Die erneute Authentifizierung war erfolgreich"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "service_battery_voltage": {
+        "name": "Service-Batterie"
+      },
+      "type": {
+        "name": "Typ",
+        "state": {
+          "electric": "Elektro",
+          "hybrid": "Hybrid",
+          "thermic": "Thermisch",
+          "hydrogen": "Wasserstoff"
+        }
+      },
+      "temperature": {
+        "name": "Temperatur"
+      },
+      "mileage": {
+        "name": "Kilometer"
+      },
+      "speed": {
+        "name": "Geschwindigkeit"
+      },
+      "autonomy": {
+        "name": "Reichweite"
+      },
+      "battery": {
+        "name": "Batterie"
+      },
+      "battery_soh": {
+        "name": "Batterie SOH"
+      },
+      "battery_charging_rate": {
+        "name": "Batterie Laderate"
+      },
+      "battery_charging_type": {
+        "name": "Batterie Ladetyp",
+        "state": {
+          "no": "Nichts",
+          "slow": "Langsam",
+          "quick": "Schnell"
+        }
+      },
+      "battery_charging_time": {
+        "name": "Batterie Ladezeit"
+      },
+      "battery_charging_end": {
+        "name": "Batterie Ladezeit-Ende"
+      },
+      "battery_capacity": {
+        "name": "Batteriekapazität"
+      },
+      "battery_residual": {
+        "name": "Batterierestwert"
+      },
+      "command_status": {
+        "name": "Befehlsstatus",
+        "state": {
+          "99": "Nicht kompatibel",
+          "900": "Akzeptiert",
+          "901": "Fahrzeug schläft",
+          "903": "Weitergeleitet",
+          "0": "Abgeschlossen",
+          "300": "Abgebrochen",
+          "500": "Fehler",
+          "502": "Doppelt"
+        }
+      },
+      "fuel": {
+        "name": "Kraftstoff"
+      },
+      "fuel_autonomy": {
+        "name": "Kraftstoffweite"
+      },
+      "fuel_consumption_total": {
+        "name": "Kraftstoffverbrauch insgesamt"
+      },
+      "fuel_consumption_instant": {
+        "name": "Kraftstoffverbrauch momentan"
+      },
+      "coolant_temperature": {
+        "name": "Kühlmitteltemperatur"
+      },
+      "oil_temperature": {
+        "name": "Öltemperatur"
+      },
+      "air_temperature": {
+        "name": "Lufttemperatur"
+      },
+      "last_trip": {
+        "name": "Letzte Fahrt",
+        "state_attributes": {
+          "duration": {
+            "name": "Dauer"
+          },
+          "start_mileage": {
+            "name": "Kilometerstand beim Start"
+          },
+          "avg_speed": {
+            "name": "Durchschnittsgeschwindigkeit"
+          },
+          "max_speed": {
+            "name": "Maximale Geschwindigkeit"
+          },
+          "electric_consumption": {
+            "name": "Stromverbrauch"
+          },
+          "electric_avg_consumption": {
+            "name": "Durchschnittlicher Stromverbrauch"
+          },
+          "fuel_consumption": {
+            "name": "Kraftstoffverbrauch"
+          },
+          "fuel_avg_consumption": {
+            "name": "Durchschnittlicher Kraftstoffverbrauch"
+          }
+        }
+      }
+    },
+    "binary_sensor": {
+      "moving": {
+        "name": "In Bewegung"
+      },
+      "doors": {
+        "name": "Türen"
+      },
+      "battery_plugged": {
+        "name": "Ladekabel angeschlossen"
+      },
+      "battery_charging": {
+        "name": "Batterie lädt"
+      },
+      "engine": {
+        "name": "Motor"
+      },
+      "air_conditioning": {
+        "name": "Vorklimatisierung"
+      }
+    },
+    "button": {
+      "wakeup": {
+        "name": "Aufwecken"
+      },
+      "doors": {
+        "name": "Türen"
+      },
+      "horn": {
+        "name": "Hupe"
+      },
+      "lights": {
+        "name": "Lichter"
+      },
+      "charge_start_stop": {
+        "name": "Ladung Starten/Stoppen"
+      },
+      "air_conditioning": {
+        "name": "Vorklimatisierung Starten/Stoppen"
+      }
+    },
+    "device_tracker": {
+      "vehicle": {
+        "name": "Fahrzeug"
+      }
+    },
+    "number": {
+      "battery_charging_limit": {
+        "name": "Batterieladelimit"
+      },
+      "refresh_interval": {
+        "name": "Aktualisierungsintervall"
+      }
+    },
+    "switch": {
+      "battery_charging_limit": {
+        "name": "Batterieladelimit"
+      },
+      "abrp_sync": {
+        "name": "ABRP Sync"
+      }
+    },
+    "text": {
+      "abrp_token": {
+        "name": "ABRP Token"
+      }
+    }
+  },
+  "common": {
+    "no_vehicles_found_message": "Für dieses Konto wurden keine Fahrzeuge gefunden"
+  }
+}
